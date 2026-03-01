@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бариста — Презентую кофе</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0d1b2a;
+      --surface: #162030;
+      --gold:    #c9963a;
+      --gold-lt: #e8c06a;
+      --cream:   #f5e6c8;
+      --muted:   #8a9bb0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('./photos/photo_4@24-12-2025_16-21-08.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,27,42,0.55) 0%,
+        rgba(13,27,42,0.40) 40%,
+        rgba(13,27,42,0.72) 100%
+      );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      padding: 0 1.5rem;
+    }
+
+    .hero__eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      color: var(--cream);
+      text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+    }
+
+    .hero__subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold-lt);
+      margin-top: 0.75rem;
+      letter-spacing: 0.06em;
+    }
+
+    .hero__divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.75rem auto 0;
+      opacity: 0.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint svg { opacity: 0.6; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── SECTIONS COMMON ─────────────────────────────────── */
+    section { padding: 6rem 1.5rem; }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 400;
+      color: var(--gold-lt);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    /* ─── INTRO ───────────────────────────────────────────── */
+    .intro {
+      background: var(--surface);
+    }
+
+    .intro__inner {
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro__text {
+      color: var(--cream);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .intro__text p + p { margin-top: 1.2rem; }
+
+    .blockquote {
+      margin: 3rem auto 0;
+      max-width: 600px;
+      border-left: 2px solid var(--gold);
+      padding: 1.2rem 1.8rem;
+      background: rgba(201,150,58,0.06);
+      border-radius: 0 6px 6px 0;
+      text-align: left;
+    }
+
+    .blockquote__text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.7;
+    }
+
+    .blockquote__source {
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── DRINKS GRID ─────────────────────────────────────── */
+    .drinks {
+      background: var(--bg);
+    }
+
+    .drinks__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .drinks__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .drinks__grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(201,150,58,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: default;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      border-color: var(--gold);
+    }
+
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.12s; }
+    .card:nth-child(3) { animation-delay: 0.19s; }
+    .card:nth-child(4) { animation-delay: 0.26s; }
+    .card:nth-child(5) { animation-delay: 0.33s; }
+    .card:nth-child(6) { animation-delay: 0.40s; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card__img-wrap {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .card__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card__img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .card__body {
+      padding: 1.2rem 1.4rem 1.5rem;
+    }
+
+    .card__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .card__origin {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-top: 0.35rem;
+    }
+
+    .card__dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin: 0.75rem 0 0;
+    }
+
+    /* ─── CRAFT ───────────────────────────────────────────── */
+    .craft {
+      background: var(--surface);
+    }
+
+    .craft__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 780px) {
+      .craft__inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .craft__img-wrap {
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+    }
+
+    .craft__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .craft__text {
+      color: var(--cream);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .craft__text p + p { margin-top: 1.2rem; }
+
+    .craft__detail {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .craft__detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+
+    .craft__detail-icon {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .craft__detail-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: #0a1520;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(201,150,58,0.15);
+    }
+
+    .footer__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+    }
+
+    .footer__tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .footer__year {
+      font-size: 0.7rem;
+      color: rgba(138,155,176,0.4);
+      margin-top: 2rem;
+      letter-spacing: 0.1em;
+    }
+
+    .footer__divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.3;
+      margin: 1.5rem auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">домашняя кофейня · specialty coffee</p>
+      <h1 class="hero__title">БАРИСТА</h1>
+      <p class="hero__subtitle">«Презентую кофе»</p>
+      <div class="hero__divider"></div>
+    </div>
+    <div class="scroll-hint">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>прокрути</span>
+    </div>
+  </section>
+
+  <!-- ═══ INTRO ═══════════════════════════════════════════════ -->
+  <section class="intro" id="about">
+    <div class="intro__inner">
+      <p class="section-label">о Бариста</p>
+      <h2 class="section-title">Кофе как страсть</h2>
+      <div class="intro__text">
+        <p>
+          Меня зовут Бариста. Я не владею кофейней — у меня дома живёт своя.
+          Синий бархат, золотой лист, рожковая кофемашина и две кофемолки: одна для эспрессо,
+          вторая — для фильтра. Это не увлечение, это способ думать.
+        </p>
+        <p>
+          Я работаю только с микролотами свежей обжарки: Эфиопия, Руанда, Колумбия.
+          Каждый рецептур выверен граммами и секундами. Каждая чашка — маленький документ
+          о том, что происходит с зерном от фермы до чашки.
+        </p>
+      </div>
+
+      <blockquote class="blockquote">
+        <p class="blockquote__text">
+          «Бомба. Очень весёлая чашка с ананасом, сладким алкогольным ликёром,
+          солёной карамелью и вишнёвым соком. Кислотность яркая, но мягкая —
+          как будто фрукты растворились в сливочной текстуре...»
+        </p>
+        <p class="blockquote__source">— дегустационные ноты эспрессо</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══ DRINKS ══════════════════════════════════════════════ -->
+  <section class="drinks" id="menu">
+    <div class="container">
+      <p class="section-label">напитки</p>
+      <h2 class="section-title">Что в чашке</h2>
+
+      <div class="drinks__grid">
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_48@08-01-2026_14-49-22.jpg"
+              alt="Cappuccino Эфиопия Иргачефф"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Cappuccino</div>
+            <div class="card__origin">Эфиопия Иргачефф</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_50@11-01-2026_16-44-05.jpg"
+              alt="Doppio Руанда Каронги"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Doppio</div>
+            <div class="card__origin">Руанда Каронги</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_56@16-01-2026_16-23-19.jpg"
+              alt="Cortado Руанда Каронги"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Cortado</div>
+            <div class="card__origin">Руанда Каронги</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_57@18-01-2026_13-53-15.jpg"
+              alt="Flat White Колумбия Эль Индио"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Flat White</div>
+            <div class="card__origin">Колумбия Эль Индио</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_107@18-02-2026_11-45-18.jpg"
+              alt="Filter Shot Руанда Ругали Ролекс 88+"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Filter Shot</div>
+            <div class="card__origin">Руанда Ругали Ролекс 88+</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__img-wrap">
+            <img
+              src="./photos/photo_4@24-12-2025_16-21-08.jpg"
+              alt="Latte домашняя кофейня"
+              loading="lazy"
+            >
+          </div>
+          <div class="card__body">
+            <div class="card__name">Latte</div>
+            <div class="card__origin">домашняя кофейня</div>
+            <div class="card__dot"></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CRAFT ═══════════════════════════════════════════════ -->
+  <section class="craft" id="craft">
+    <div class="container">
+      <div class="craft__inner">
+
+        <div class="craft__img-wrap">
+          <img
+            src="./photos/photo_47@08-01-2026_14-30-35.jpg"
+            alt="Подготовка эспрессо"
+          >
+        </div>
+
+        <div>
+          <p class="section-label">ремесло</p>
+          <h2 class="section-title">Как это делается</h2>
+          <div class="craft__text">
+            <p>
+              Спешелти-кофе (specialty coffee) — не просто слово на этикетке. Это конкретный микролот,
+              конкретный фермер, конкретный профиль обжарки. Я выбираю зерно с историей
+              и готовлю его с точностью.
+            </p>
+            <p>
+              Для эспрессо и фильтра — разные кофемолки. Потому что у каждого метода
+              свои требования к помолу, и компромисс здесь стоит вкуса.
+            </p>
+          </div>
+          <div class="craft__detail">
+            <div class="craft__detail-item">
+              <div class="craft__detail-icon"></div>
+              <p class="craft__detail-text">Отдельная кофемолка для фильтра — равномерный помол без мелких частиц</p>
+            </div>
+            <div class="craft__detail-item">
+              <div class="craft__detail-icon"></div>
+              <p class="craft__detail-text">Свежеобжаренный микролот — не старше 4 недель с даты обжарки</p>
+            </div>
+            <div class="craft__detail-item">
+              <div class="craft__detail-icon"></div>
+              <p class="craft__detail-text">Точные рецептуры: каждый напиток — конкретные граммы, температура, время</p>
+            </div>
+            <div class="craft__detail-item">
+              <div class="craft__detail-icon"></div>
+              <p class="craft__detail-text">Оценка по системе SCA — только сорта 85+ в чашке</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer__name">БАРИСТА</div>
+    <p class="footer__tagline">домашняя кофейня · specialty coffee</p>
+    <div class="footer__divider"></div>
+    <p class="footer__year">2026</p>
+  </footer>
+
+  <script>
+    // Subtle parallax on hero bg
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroBg.style.transform = `scale(1.04) translateY(${y * 0.25}px)`;
+    }, { passive: true });
+
+    // Intersection observer for card animations
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.animationPlayState = 'running';
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    cards.forEach(card => {
+      card.style.animationPlayState = 'paused';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
